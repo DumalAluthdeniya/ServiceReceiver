@@ -1,0 +1,77 @@
+﻿@model ViewModel
+@{
+	ViewData["Title"] = "Home Page";
+}
+
+<div class="text-center mb-5">
+	<h1 class="display-4">Welcome to Service Status Checker!</h1>
+</div>
+<div class="row">
+	<div class="col-6">
+		<h3>Service status</h3>
+		<table class="table align-middle mb-0 bg-white">
+			<thead class="bg-light">
+				<tr>
+					<th>Name</th>
+					<th>Status</th>
+				</tr>
+			</thead>
+			<tbody>
+				@foreach (var s in Model.Services)
+				{
+					<tr>
+						<td>@s.Name</td>
+						@if (s.Status.Equals("Running"))
+						{
+							<td>
+								<button type="button" class="button">@s.Status</button>
+							</td>
+						}
+						else
+						{
+							<td>
+								<button type="button" class="button-stop">@s.Status</button>
+							</td>
+						}
+					</tr>
+				}
+
+			</tbody>
+		</table>
+	</div>
+	<div class="col-6">
+		<h3>App Pool status</h3>
+		<table class="table align-middle mb-0 bg-white">
+			<thead class="bg-light">
+				<tr>
+					<th>Name</th>
+					<th>Status</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td>@Model.AppPool.Name</td>
+					@if (Model.AppPool.AppPoolStatus.Equals("Started"))
+					{
+						<td>
+							<button type="button" class="button">@Model.AppPool.AppPoolStatus</button>
+						</td>
+
+					}
+					else
+					{
+						<td>
+							<button type="button" class="button-stop">@Model.AppPool.AppPoolStatus</button>
+						</td>
+					}
+				</tr>
+			
+			</tbody>
+		</table>
+	</div>
+</div>
+<script type="text/javascript">
+	setTimeout(function () {
+	  location.reload();
+	}, 5 * 60 * 1000);
+</script>
